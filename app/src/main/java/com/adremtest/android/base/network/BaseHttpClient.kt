@@ -77,7 +77,6 @@ private val authInterceptor = Interceptor { chain ->
         .addHeader(ApiHeaderKey.CONTENT_TYPE, ApiHeaderValue.APPLICATION_JSON)
         .addHeader(ApiHeaderKey.APP_ID, ApiHeaderValue.APP_ID)
         .addHeader(ApiHeaderKey.PASSWORD, ApiHeaderValue.PASSWORD)
-        .addHeader(ApiHeaderKey.CONTENT_TYPE, ApiHeaderValue.APPLICATION_JSON)
         .addHeader(ApiHeaderKey.LANGUAGE, ApiHeaderValue.LOCALE_EN)
         .addHeader(ApiHeaderKey.DEVICE_TYPE, ApiHeaderValue.DEVICE_TYPE)
         .build()

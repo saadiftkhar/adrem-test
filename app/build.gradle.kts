@@ -86,3 +86,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 }
+
+hilt {
+    enableAggregatingTask = false
+}

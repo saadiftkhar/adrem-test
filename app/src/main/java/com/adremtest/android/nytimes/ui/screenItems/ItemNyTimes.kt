@@ -1,13 +1,16 @@
 package com.adremtest.android.nytimes.ui.screenItems
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,75 +35,67 @@ import com.adremtest.android.nytimes.ui.theme.ColorGray808080
 @Composable
 fun ItemNyTimes(model: Article) {
     val context = LocalContext.current
+
     Column(
         modifier = Modifier
-            .padding(4.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.LightGray)
             .padding(8.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.White)
+            .padding(12.dp)
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context)
-                .data(model.media?.get(0)?.mediaMetadata?.get(0)?.url)
-                .size(200, 200)
+                .data(model.media?.getOrNull(0)?.mediaMetadata?.getOrNull(0)?.url)
                 .crossfade(true)
                 .build(),
-            contentDescription = "",
-            placeholder = painterResource(R.drawable.ic_android),
-            error = painterResource(R.drawable.ic_android),
+            contentDescription = "Article image",
+            placeholder = painterResource(R.drawable.ic_camera),
+            error = painterResource(R.drawable.ic_camera),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier
+                .size(100.dp)
+                .clip(CircleShape)
+                .align(Alignment.CenterHorizontally)
         )
+        Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 4.dp)
-                .weight(1f),
-            text = model.title ?: "",
-            style = TextStyle(
-                fontSize = 14.sp,
-                color = ColorBlack000000
-            ),
+            text = model.title.orEmpty(),
+            style = TextStyle(fontSize = 16.sp, color = ColorBlack000000),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
 
+        Spacer(modifier = Modifier.height(4.dp))
+
         Text(
-            modifier = Modifier
-                .padding(top = 4.dp)
-                .fillMaxWidth()
-                .weight(1f),
-            text = model.abstract ?: "",
-            style = TextStyle(
-                fontSize = 12.sp,
-                color = ColorGray808080
-            ),
-            maxLines = 1,
+            text = model.abstract.orEmpty(),
+            style = TextStyle(fontSize = 14.sp, color = ColorGray808080),
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
 
+        Spacer(modifier = Modifier.height(6.dp))
+
         Row(
-            modifier = Modifier
-                .padding(top = 4.dp)
-                .align(Alignment.End)
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.ic_calendar),
                 contentDescription = "Calendar",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(16.dp),
+                tint = ColorGray808080
             )
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = model.abstract ?: "",
-                style = TextStyle(
-                    fontSize = 12.sp,
-                    color = ColorGray808080
-                ),
+                text = model.publishedDate.orEmpty(),
+                style = TextStyle(fontSize = 12.sp, color = ColorGray808080),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         }
     }
+
 
 }
 
