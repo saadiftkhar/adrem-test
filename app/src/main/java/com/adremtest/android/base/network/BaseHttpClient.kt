@@ -1,10 +1,10 @@
 package com.adremtest.android.base.network
 
 import android.content.Context
+import android.util.Log
 import androidx.multidex.BuildConfig
-import com.sxadminapp.android.common.api.ApiHeaderKey
-import com.sxadminapp.android.common.api.ApiHeaderValue
-import com.sxadminapp.android.utils.ELog
+import com.adremtest.android.common.api.ApiHeaderKey
+import com.adremtest.android.common.api.ApiHeaderValue
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -46,22 +46,22 @@ class BaseHttpClient @Inject constructor(
 
             return okHttpClient
         } catch (e: CertificateException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient: ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient: ${e.message}")
             return OkHttpClient()
         } catch (e: IOException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
             return OkHttpClient()
         } catch (e: NoSuchAlgorithmException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
             return OkHttpClient()
         } catch (e: UnrecoverableKeyException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
             return OkHttpClient()
         } catch (e: KeyManagementException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
             return OkHttpClient()
         } catch (e: InvalidKeySpecException) {
-            ELog.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
+            Log.d("OK_HTTP_ISSUE", "okHttpClient:  ${e.message}")
             return OkHttpClient()
         }
     }
@@ -75,6 +75,11 @@ private val authInterceptor = Interceptor { chain ->
     val requestBuilder = request.newBuilder()
     request = requestBuilder
         .addHeader(ApiHeaderKey.CONTENT_TYPE, ApiHeaderValue.APPLICATION_JSON)
+        .addHeader(ApiHeaderKey.APP_ID, ApiHeaderValue.APP_ID)
+        .addHeader(ApiHeaderKey.PASSWORD, ApiHeaderValue.PASSWORD)
+        .addHeader(ApiHeaderKey.CONTENT_TYPE, ApiHeaderValue.APPLICATION_JSON)
+        .addHeader(ApiHeaderKey.LANGUAGE, ApiHeaderValue.LOCALE_EN)
+        .addHeader(ApiHeaderKey.DEVICE_TYPE, ApiHeaderValue.DEVICE_TYPE)
         .build()
     val response = chain.proceed(request)
     val responseBuilder = response.newBuilder()

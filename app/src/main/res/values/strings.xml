@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AdremTest</string>
+    <string name="something_wrong">Something went wrong</string>
+    <string name="connection_failed">Connection failed</string>
 </resources>

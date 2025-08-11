@@ -1,6 +1,6 @@
 package com.adremtest.android.base.network
 
-import com.sxadminapp.android.base.ErrorResponse
+import com.adremtest.android.base.ErrorResponse
 
 sealed class Result<out T> {
     data class Success<out T : Any>(val data: T) : Result<T>()

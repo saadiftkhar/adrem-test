@@ -11,4 +11,7 @@ abstract class BaseResponse(
 
     @SerializedName("num_results")
     var numResults: Int? = null,
+
+    var code: Int? = null,
+    var message: String? = null,
 )

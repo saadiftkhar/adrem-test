@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.kotlinAndroidKsp)
-    alias(libs.plugins.google.gms.google.services)
+//    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -42,6 +42,7 @@ android {
     buildFeatures {
         compose = true
     }
+
 }
 
 dependencies {

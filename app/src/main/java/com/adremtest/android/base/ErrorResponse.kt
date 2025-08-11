@@ -1,4 +1,4 @@
-package com.sxadminapp.android.base
+package com.adremtest.android.base
 
 import com.adremtest.android.base.network.BaseResponse
 
