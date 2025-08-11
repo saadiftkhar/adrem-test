@@ -2,10 +2,9 @@ package com.adremtest.android.base.network
 
 import android.content.Context
 import android.content.res.Resources
-import com.google.gson.Gson
-import com.sxadminapp.android.R
-import com.sxadminapp.android.base.ErrorResponse
+import com.adremtest.android.base.ErrorResponse
 import com.adremtest.android.base.ResponseModel
+import com.google.gson.Gson
 import okhttp3.RequestBody
 import okio.Buffer
 import org.json.JSONObject
@@ -38,13 +37,6 @@ open class BaseRepository(private val resource: Resources, val context: Context)
                 return Result.Success(response.body()!!)
             }
 
-            /*if (response.code() == 401 || response.code() == 403 || response.code() == 801) {
-                AppConstants.appSharedStorage.logout()
-                val broadcastIntent = Intent(BaseFragment.FORCE_LOGOUT_BROADCAST_EVENT)
-                LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastIntent)
-                return NetworkResult.Failure(resource.getString(R.string.session_expired))
-            }*/
-
             return Result.Error(parseError(response))
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -76,10 +68,7 @@ open class BaseRepository(private val resource: Resources, val context: Context)
     private fun parseError(exception: Exception): ErrorResponse {
         val errorResponse = ErrorResponse()
         if (exception is UnknownHostException || exception is UnknownServiceException) {
-            errorResponse.message = resource.getString(R.string.internet_lost)
-//        } else if (exception is SSLPeerUnverifiedException) {
-//            errorResponse.message = getAppContext().getString(R.string.error_message_ssl_pining)
-//            CommonConfig.onSslException()
+            errorResponse.message = "internet lost"
         } else {
             errorResponse.message = ""
         }
@@ -94,15 +83,15 @@ open class BaseRepository(private val resource: Resources, val context: Context)
         errorResponse.code = code
         when (code) {
             in 500..510 -> {
-                errorResponse.message = resource.getString(R.string.error_message_502)
+                errorResponse.message = "Error code 502"
             }
 
             in 401..403 -> {
-                errorResponse.message = resource.getString(R.string.error_message_403)
+                errorResponse.message = "Error code 403"
             }
 
             else -> {
-                errorResponse.message = resource.getString(R.string.internet_lost)
+                errorResponse.message = "internet lost"
             }
         }
         return errorResponse
